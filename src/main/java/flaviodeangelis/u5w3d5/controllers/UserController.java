@@ -1,5 +1,6 @@
 package flaviodeangelis.u5w3d5.controllers;
 
+import flaviodeangelis.u5w3d5.entities.Event;
 import flaviodeangelis.u5w3d5.entities.User;
 import flaviodeangelis.u5w3d5.exception.NotFoundException;
 import flaviodeangelis.u5w3d5.service.UserService;
@@ -10,6 +11,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -44,6 +47,16 @@ public class UserController {
     @GetMapping("/me")
     public UserDetails getCurrentProfile(@AuthenticationPrincipal UserDetails currentUser) {
         return currentUser;
+    }
+
+    @GetMapping("/me/events")
+    public List<Event> getCurrentProfile(@AuthenticationPrincipal User currentUser) {
+        return usersService.getMyEvents(currentUser.getId());
+    }
+
+    @DeleteMapping("/me")
+    public void deleteCurrent(@AuthenticationPrincipal User currentUser) {
+        usersService.findByIdAndDelete(currentUser.getId());
     }
 
     @PutMapping("/buyTicket/{eventId}")
