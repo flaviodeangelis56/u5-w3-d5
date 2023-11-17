@@ -48,7 +48,6 @@ public class UserController {
 
     @PutMapping("/buyTicket/{eventId}")
     public String buyTicket(@AuthenticationPrincipal UserDetails currentUser, @PathVariable int eventId) {
-        usersService.buyTicket(currentUser.getUsername(), eventId);
-        return "Biglietto comprato con successo";
+        return usersService.buyTicket(currentUser.getUsername(), eventId);
     }
 }

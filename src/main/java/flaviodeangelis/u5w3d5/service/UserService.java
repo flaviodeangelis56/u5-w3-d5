@@ -40,11 +40,18 @@ public class UserService {
                 .orElseThrow(() -> new NotFoundException("Utente con email " + email + " non trovato!"));
     }
 
-    public void buyTicket(String userUsername, int eventId) {
+    public String buyTicket(String userUsername, int eventId) {
         User userFound = userRepository.findByUsername(userUsername).orElseThrow(() -> new NotFoundException("utente con username " + userUsername + "non trovato"));
         Event eventFound = eventRepository.findById(eventId).orElseThrow(() -> new NotFoundException(eventId));
-        userFound.getEvents().add(eventFound);
-        eventFound.getUsers().add(userFound);
-        userRepository.save(userFound);
+        if (eventFound.getMaxNumberOfPeople() == 0) {
+            return "mi dispiace ma l'evento è già al completo";
+        } else {
+            userFound.getEvents().add(eventFound);
+            eventFound.getUsers().add(userFound);
+            eventFound.setMaxNumberOfPeople(eventFound.getMaxNumberOfPeople() - 1);
+            userRepository.save(userFound);
+            return "Biglietto acquistato con successo";
+        }
+
     }
 }
