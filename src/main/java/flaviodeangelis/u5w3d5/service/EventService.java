@@ -6,6 +6,7 @@ import flaviodeangelis.u5w3d5.entities.Event;
 import flaviodeangelis.u5w3d5.exception.BadRequestException;
 import flaviodeangelis.u5w3d5.exception.NotFoundException;
 import flaviodeangelis.u5w3d5.payloads.NewEventDTO;
+import flaviodeangelis.u5w3d5.payloads.UpdateEventDTO;
 import flaviodeangelis.u5w3d5.repositories.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -65,5 +66,16 @@ public class EventService {
         found.setEventImg(imgURL);
         eventRepository.save(found);
         return imgURL;
+    }
+
+    public Event uploadEvent(UpdateEventDTO body, int id) {
+        Event found = this.findById(id);
+        found.setId(id);
+        found.setDate(body.date());
+        found.setDescription(body.description());
+        found.setLocation(body.location());
+        found.setTitle(body.title());
+        found.setMaxNumberOfPeople(body.maxNumberOfPeople());
+        return eventRepository.save(found);
     }
 }

@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 
-public record NewEventDTO(
+public record UpdateEventDTO(
         @NotEmpty(message = "Il titolo è un campo obbligatorio!")
         String title,
         @NotEmpty(message = "La descrizione è un campo obbligatorio!")

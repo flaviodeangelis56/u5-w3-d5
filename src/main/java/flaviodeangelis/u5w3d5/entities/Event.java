@@ -3,7 +3,7 @@ package flaviodeangelis.u5w3d5.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -15,7 +15,7 @@ public class Event {
     private String title;
     private String description;
     private String location;
-    private Date date;
+    private LocalDate date;
     private int maxNumberOfPeople;
     private String eventImg;
     @ManyToMany

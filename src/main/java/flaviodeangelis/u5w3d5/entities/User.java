@@ -12,7 +12,7 @@ import java.util.List;
 
 @Entity
 @Data
-@JsonIgnoreProperties({"password"})
+@JsonIgnoreProperties({"password", "events"})
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
