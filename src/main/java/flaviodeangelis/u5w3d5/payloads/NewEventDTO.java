@@ -2,7 +2,7 @@ package flaviodeangelis.u5w3d5.payloads;
 
 import jakarta.validation.constraints.NotEmpty;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 public record NewEventDTO(
         @NotEmpty(message = "Il titolo è un campo obbligatorio!")
@@ -11,7 +11,6 @@ public record NewEventDTO(
         String description,
         @NotEmpty(message = "La location è un campo obbligatorio!")
         String location,
-        @NotEmpty(message = "La data è un campo obbligatorio!")
-        LocalDate date,
+        Date date,
         int maxNumberOfPeople) {
 }

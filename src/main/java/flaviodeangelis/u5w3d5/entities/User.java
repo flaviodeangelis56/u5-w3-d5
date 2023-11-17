@@ -30,6 +30,7 @@ public class User implements UserDetails {
                     @JoinColumn(name = "id_event", referencedColumnName = "id")},
             inverseJoinColumns = {
                     @JoinColumn(name = "id_user", referencedColumnName = "id")})
+
     private List<Event> events;
 
     @Override

@@ -37,6 +37,9 @@ public class AuthService {
         userRepository.findByEmail(body.email()).ifPresent(user -> {
             throw new BadRequestException("L'email " + user.getEmail() + " è già utilizzata!");
         });
+        userRepository.findByUsername(body.username()).ifPresent(user -> {
+            throw new BadRequestException("L'username " + user.getUsername() + " è già utilizzato!");
+        });
 
         User newUser = new User();
         if (body.role() == null) {

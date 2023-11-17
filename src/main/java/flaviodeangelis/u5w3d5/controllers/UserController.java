@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -37,5 +39,16 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public void findByIdAndDelete(@PathVariable int id) throws NotFoundException {
         usersService.findByIdAndDelete(id);
+    }
+
+    @GetMapping("/me")
+    public UserDetails getCurrentProfile(@AuthenticationPrincipal UserDetails currentUser) {
+        return currentUser;
+    }
+
+    @PutMapping("/buyTicket/{eventId}")
+    public String buyTicket(@AuthenticationPrincipal UserDetails currentUser, @PathVariable int eventId) {
+        usersService.buyTicket(currentUser.getUsername(), eventId);
+        return "Biglietto comprato con successo";
     }
 }
