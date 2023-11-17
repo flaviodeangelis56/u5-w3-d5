@@ -57,6 +57,17 @@ public class UserService {
 
     }
 
+    public String removeTicket(String userUsername, int eventId) {
+        User userFound = userRepository.findByUsername(userUsername).orElseThrow(() -> new NotFoundException("utente con username " + userUsername + "non trovato"));
+        Event eventFound = eventRepository.findById(eventId).orElseThrow(() -> new NotFoundException(eventId));
+        userFound.getEvents().remove(eventFound);
+        eventFound.getUsers().remove(userFound);
+        eventFound.setMaxNumberOfPeople(eventFound.getMaxNumberOfPeople() + 1);
+        userRepository.save(userFound);
+        return "Biglietto rimosso con successo";
+    }
+
+
     public List<Event> getMyEvents(int id) {
         User found = userRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
         return found.getEvents();

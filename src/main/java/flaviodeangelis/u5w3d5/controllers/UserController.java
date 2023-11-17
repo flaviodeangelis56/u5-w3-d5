@@ -63,4 +63,9 @@ public class UserController {
     public String buyTicket(@AuthenticationPrincipal UserDetails currentUser, @PathVariable int eventId) {
         return usersService.buyTicket(currentUser.getUsername(), eventId);
     }
+
+    @PutMapping("/removeTicket/{eventId}")
+    public String removeTicket(@AuthenticationPrincipal UserDetails currentUser, @PathVariable int eventId) {
+        return usersService.removeTicket(currentUser.getUsername(), eventId);
+    }
 }
